@@ -74,15 +74,18 @@ def main():
         st.error(f"Error loading data: {e}")
         data = pd.DataFrame(columns=["Customer ID", "First Name", "Last Name", "Email", "Phone", "Status", "Amount"])
     
-    try:
-        api_key = st.secrets("OPENAI_API_KEY")
-        if not api_key:
-            st.error("OpenAI API Key not found in environment variables")
-            return
-        assistant = AIAssistant(api_key)
-    except Exception as e:
-        st.error(f"Error initializing AI Assistant: {e}")
+try:
+    # Debug logging
+    st.write("Secrets available:", st.secrets)
+    
+    api_key = st.secrets.OPENAI_API_KEY  # Changed from ["OPENAI_API_KEY"] to .OPENAI_API_KEY
+    if not api_key:
+        st.error("OpenAI API Key not found in secrets")
         return
+    assistant = AIAssistant(api_key)
+except Exception as e:
+    st.error(f"Error initializing AI Assistant: {str(e)}")  # Added str() to get full error
+    return
     
     with st.sidebar:
         st.header("CRM Actions")
