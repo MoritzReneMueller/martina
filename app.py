@@ -75,7 +75,7 @@ def main():
         data = pd.DataFrame(columns=["Customer ID", "First Name", "Last Name", "Email", "Phone", "Status", "Amount"])
     
     try:
-        api_key = os.getenv("OPENAI_API_KEY")
+        api_key = st.secrets("OPENAI_API_KEY")
         if not api_key:
             st.error("OpenAI API Key not found in environment variables")
             return
