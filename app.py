@@ -75,16 +75,13 @@ def main():
         data = pd.DataFrame(columns=["Customer ID", "First Name", "Last Name", "Email", "Phone", "Status", "Amount"])
     
     try:
-        # Debug logging
-        st.write("Secrets available:", st.secrets)
-        
         api_key = st.secrets.OPENAI_API_KEY
         if not api_key:
             st.error("OpenAI API Key not found in secrets")
             return
         assistant = AIAssistant(api_key)
     except Exception as e:
-        st.error(f"Error initializing AI Assistant: {str(e)}")
+        st.error("Error initializing AI Assistant. Please check your API key configuration.")
         return
     
     with st.sidebar:
